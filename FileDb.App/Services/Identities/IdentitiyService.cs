@@ -6,7 +6,6 @@ namespace FileDb.App.Services.Identities
     internal class IdentitiyService
     {
         private static IdentitiyService instance;
-        private static int id;
         private readonly IStorageBroker storageBroker;
 
         private IdentitiyService()
@@ -36,7 +35,5 @@ namespace FileDb.App.Services.Identities
         {
             return users[users.Count - 1].Id + 1;
         }
-
-     
     }
 }

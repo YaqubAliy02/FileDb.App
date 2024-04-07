@@ -29,6 +29,7 @@ namespace FileDb.App.Storages
                     break;
                 }
             }
+
             File.WriteAllText(FILEPATH, string.Empty);
             foreach (User user1 in users)
             {
