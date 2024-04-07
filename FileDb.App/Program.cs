@@ -6,6 +6,6 @@ internal class Program
     {
         IdentitiyService identitiyService = IdentitiyService.GetInstance();
         Console.WriteLine(identitiyService.GetNewId());
-    
+   
     }
 }
