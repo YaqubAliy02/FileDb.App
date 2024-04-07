@@ -3,7 +3,7 @@ using FileDb.App.Storages;
 
 namespace FileDb.App.Services.Identities
 {
-    internal class IdentitiyService
+    internal class IdentitiyService 
     {
         private static IdentitiyService instance;
         private readonly IStorageBroker storageBroker;

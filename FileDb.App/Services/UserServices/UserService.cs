@@ -43,6 +43,7 @@ namespace FileDb.App.Services.UserServices
             }
             else
             {
+                this.loggingBroker.LogInforamation("User is created successfully");
                 return this.storageBroker.AddUser(user);
             }
         }
