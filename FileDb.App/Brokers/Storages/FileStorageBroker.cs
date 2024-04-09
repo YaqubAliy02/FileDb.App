@@ -1,6 +1,6 @@
 ﻿using FileDb.App.Models.Users;
 
-namespace FileDb.App.Storages
+namespace FileDb.App.Brokers.Storages
 {
     internal class FileStorageBroker : IStorageBroker
     {

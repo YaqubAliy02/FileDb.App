@@ -1,5 +1,6 @@
 ﻿using FileDb.App.Models.Users;
-using FileDb.App.Storages;
+using FileDb.App.Brokers.Storages;
+using System.Runtime.CompilerServices;
 
 namespace FileDb.App.Services.Identities
 {
@@ -10,7 +11,7 @@ namespace FileDb.App.Services.Identities
 
         private IdentitiyService()
         {
-            this.storageBroker = new FileStorageBroker();
+            this.storageBroker = new JsonStorageBroker();
         }
 
         public static IdentitiyService GetInstance()

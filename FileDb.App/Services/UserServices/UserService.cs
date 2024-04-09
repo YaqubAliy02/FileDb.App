@@ -1,6 +1,6 @@
 ﻿using FileDb.App.Brokers.Loggings;
 using FileDb.App.Models.Users;
-using FileDb.App.Storages;
+using FileDb.App.Brokers.Storages;
 
 namespace FileDb.App.Services.UserServices
 {
@@ -8,17 +8,20 @@ namespace FileDb.App.Services.UserServices
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
+
         public UserService()
         {
-            this.storageBroker = new FileStorageBroker();
+            this.storageBroker = new JsonStorageBroker();
             this.loggingBroker = new LoggingBroker();
         }
+
         public User AddUser(User user)
         {
             return user is null
                 ? CreateAndLogInvalidUser()
                 : ValidateAndAddUser(user);
         }
+
         public void ShowUsers()
         {
             List<User> users = this.storageBroker.ReadAllUsers();
@@ -29,11 +32,13 @@ namespace FileDb.App.Services.UserServices
             }
             this.loggingBroker.LogInforamation("===End of users");
         }
+
         private User CreateAndLogInvalidUser()
         {
             this.loggingBroker.LogError("User is invalid");
             return new User();
         }
+
         private User ValidateAndAddUser(User user)
         {
             if (user.Id is 0 || String.IsNullOrWhiteSpace(user.Name))
@@ -47,6 +52,7 @@ namespace FileDb.App.Services.UserServices
                 return this.storageBroker.AddUser(user);
             }
         }
+
         public void DeleteUser(int id)
         {
             List<User> users = this.storageBroker.ReadAllUsers();
@@ -61,6 +67,7 @@ namespace FileDb.App.Services.UserServices
             }
             this.loggingBroker.LogError($"PhoneBook with ID {id} not found.");
         }
+
         public void Update(User user)
         {
             if (user is null)
@@ -76,6 +83,7 @@ namespace FileDb.App.Services.UserServices
 
             this.storageBroker.UpdateUser(user);
         }
+
         public void Delete(int id)
         {
             this.storageBroker.DeleteUser(id);

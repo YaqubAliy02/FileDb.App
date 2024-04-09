@@ -1,12 +1,22 @@
-﻿using FileDb.App.UserProcessing;
+﻿using FileDb.App.Brokers.Storages;
+using FileDb.App.Services.Identities;
+using FileDb.App.Services.UserServices;
+using FileDb.App.UserProcessing;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        UserProcessingService userProcessingService = new UserProcessingService();
-
         string userChoice;
+        IUserService userService = new UserService();
+        IdentitiyService identitiyService = IdentitiyService.GetInstance();
+
+        UserProcessingService userProcessingService = new UserProcessingService(
+                    userService,
+                    identitiyService);
+        JsonStorageBroker jsonStorageBroker = new JsonStorageBroker();
+
+
         do
         {
             PrintMenu();
@@ -60,9 +70,11 @@ internal class Program
             }
         }
         while (userChoice != "0");
+
         Console.Clear();
         Console.WriteLine("The app has been finished");
     }
+
     public static void PrintMenu()
     {
         Console.WriteLine("1.Create User");
