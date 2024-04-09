@@ -1,8 +1,6 @@
-﻿using FileDb.App.Brokers.Loggings;
-using FileDb.App.Models.Users;
+﻿using FileDb.App.Models.Users;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserServices;
-using System.Runtime.CompilerServices;
 
 namespace FileDb.App.UserProcessing
 {
@@ -10,13 +8,12 @@ namespace FileDb.App.UserProcessing
     {
         private readonly IUserService userService;
         private readonly IdentitiyService identityService;
-        private readonly ILoggingBroker loggingBroker;
 
-        public UserProcessingService()
+        public UserProcessingService(UserService userService,
+                    IdentitiyService identitiyService)
         {
-            this.userService = new UserService();
-            this.identityService =  IdentitiyService.GetInstance();
-            this.loggingBroker = new LoggingBroker();
+            this.userService = userService;
+            this.identityService =  identitiyService;
         }
 
         public void CreateNewUser(string name)
@@ -26,21 +23,18 @@ namespace FileDb.App.UserProcessing
             user.Name = name;
             this.userService.AddUser(user);
         }
-        public void DisplayUsers()
-        {
+
+        public void DisplayUsers() =>
             this.userService.ShowUsers();
-        }
-        public void DeleteUser(int id)
-        {
+
+        public void DeleteUser(int id) =>
             this.userService.Delete(id);
-        }
+
         public void UpdateUser(string name)
         {
             User user = new User();
             user.Name = name;
             this.userService.Update(user);
         }
-
-       
     }
 }
