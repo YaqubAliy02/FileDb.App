@@ -9,7 +9,7 @@ namespace FileDb.App.UserProcessing
         private readonly IUserService userService;
         private readonly IdentitiyService identityService;
 
-        public UserProcessingService(UserService userService,
+        public UserProcessingService(IUserService userService,
                     IdentitiyService identitiyService)
         {
             this.userService = userService;
