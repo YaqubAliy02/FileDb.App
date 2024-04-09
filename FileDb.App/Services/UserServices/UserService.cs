@@ -1,6 +1,6 @@
 ﻿using FileDb.App.Brokers.Loggings;
 using FileDb.App.Models.Users;
-using FileDb.App.Storages;
+using FileDb.App.Brokers.Storages;
 
 namespace FileDb.App.Services.UserServices
 {
