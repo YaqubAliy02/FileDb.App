@@ -7,10 +7,10 @@ namespace FileDb.App.UserProcessing
     internal class UserProcessingService
     {
         private readonly IUserService userService;
-        private readonly IdentitiyService identityService;
+        private readonly IdentityService identityService;
 
         public UserProcessingService(IUserService userService,
-                    IdentitiyService identitiyService)
+                    IdentityService identitiyService)
         {
             this.userService = userService;
             this.identityService =  identitiyService;

@@ -3,21 +3,21 @@ using FileDb.App.Brokers.Storages;
 
 namespace FileDb.App.Services.Identities
 {
-    internal class IdentitiyService : IIdentityService
+    internal class IdentityService : IIdentityService
     {
-        private static IdentitiyService instance;
+        private static IdentityService instance;
         private readonly IStorageBroker storageBroker;
 
-        private IdentitiyService()
+        private IdentityService()
         {
             this.storageBroker = new JsonStorageBroker();
         }
 
-        public static IdentitiyService GetInstance()
+        public static IdentityService GetInstance()
         {
             if (instance is null)
             {
-                instance = new IdentitiyService();
+                instance = new IdentityService();
             }
 
             return instance;
