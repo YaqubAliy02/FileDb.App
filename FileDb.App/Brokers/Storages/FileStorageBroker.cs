@@ -4,7 +4,7 @@ namespace FileDb.App.Brokers.Storages
 {
     internal class FileStorageBroker : IStorageBroker
     {
-        private const string FILEPATH = "../../../Users.txt";
+        private const string FilePath = "../../../Users.txt";
         public FileStorageBroker()
         {
             EnsureFileExists();
@@ -14,13 +14,14 @@ namespace FileDb.App.Brokers.Storages
         {
             string userLine = $"{user.Id}*{user.Name}\n";
 
-            File.AppendAllText(FILEPATH, userLine);
+            File.AppendAllText(FilePath, userLine);
             return user;
         }
 
-        public void UpdateUser(User user)
+        public User UpdateUser(User user)
         {
             List<User> users = ReadAllUsers();
+
             for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == user.Id)
@@ -30,16 +31,19 @@ namespace FileDb.App.Brokers.Storages
                 }
             }
 
-            File.WriteAllText(FILEPATH, string.Empty);
-            foreach (User user1 in users)
+            File.WriteAllText(FilePath, string.Empty);
+
+            foreach (User userLine in users)
             {
-                AddUser(user1);
+                AddUser(userLine);
             }
+
+            return user;
         }
 
         public List<User> ReadAllUsers()
         {
-            string[] userLines = File.ReadAllLines(FILEPATH);
+            string[] userLines = File.ReadAllLines(FilePath);
             List<User> users = new List<User>();
 
             foreach (string userLine in userLines)
@@ -52,31 +56,43 @@ namespace FileDb.App.Brokers.Storages
                 };
                 users.Add(user);
             }
+
             return users;
         }
 
+        public bool DeleteUser(int id)
+        {
+            bool isDeleted = false;
+            string[] userLines = File.ReadAllLines(FilePath);
+            int userLength = userLines.Length;
+            File.WriteAllText(FilePath, String.Empty);
+
+            for (int iterator = 0; iterator < userLength; iterator++)
+            {
+                string userLine = userLines[iterator];
+                string[] contactProperties = userLine.Split("*");
+
+                if (contactProperties[0] == id.ToString())
+                {
+                    isDeleted = true;
+                }
+                else
+                {
+                    File.AppendAllText(FilePath, userLine);
+                }
+            }
+
+            return isDeleted;
+        }
 
         private void EnsureFileExists()
         {
-            bool fileExists = File.Exists(FILEPATH);
+            bool fileExists = File.Exists(FilePath);
+
             if (fileExists is false)
             {
-                File.Create(FILEPATH).Close();
+                File.Create(FilePath).Close();
             }
         }
-
-        public void DeleteUser(int id)
-        {
-            List<User> users = this.ReadAllUsers();
-            File.WriteAllText(FILEPATH, string.Empty);
-
-            for (int i = 0; i < users.Count; i++)
-            {
-                if (users[i].Id != id)
-                {
-                    this.AddUser(users[i]);
-                }
-            }
-        }  
     }
 }
