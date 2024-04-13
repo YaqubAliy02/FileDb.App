@@ -68,8 +68,7 @@ In our project, we've implemented dependency injection to support two database f
 Dependency Injection (DI) is a design pattern that has gained immense popularity in the world of software engineering. It offers a practical solution to manage dependencies between different objects, promoting loose coupling, and enhancing the testability and maintainability of your code.
 Here's an example of how we've used it:
 
-csharp
-Copy code
+Copy example:
 public UserService(IStorageBroker storageBroker)
 {
     this.loggingBroker = new LoggingBroker();
