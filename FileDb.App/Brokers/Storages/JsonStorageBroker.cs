@@ -15,7 +15,8 @@ namespace FileDB.App.Brokers.Storages
 
         public User AddUser(User user)
         {
-            string usersString = File.ReadAllText(FilePath);
+
+            string usersString = File.Exists(FilePath) ? File.ReadAllText(FilePath) : "[]";
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
             users.Add(user);
             string serializedUsers = JsonSerializer.Serialize(users);
@@ -63,7 +64,9 @@ namespace FileDB.App.Brokers.Storages
             if (fileExists is false)
             {
                 File.Create(FilePath).Close();
+                File.WriteAllText(FilePath, "[]");
             }
+
         }
     }
 }
