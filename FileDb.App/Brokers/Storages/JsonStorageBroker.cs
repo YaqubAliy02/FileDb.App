@@ -1,7 +1,8 @@
-using System.Text.Json;
+using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
+using System.Text.Json;
 
-namespace FileDb.App.Brokers.Storages
+namespace FileDB.App.Brokers.Storages
 {
     internal class JsonStorageBroker : IStorageBroker
     {
@@ -35,8 +36,7 @@ namespace FileDb.App.Brokers.Storages
         {
             string usersString = File.ReadAllText(FilePath);
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
-
-            User updatedUser = users.Find(u => u.Id == user.Id);
+            User updatedUser = users.FirstOrDefault(u => u.Id == user.Id);
             updatedUser.Name = user.Name;
 
             string serializedUsers = JsonSerializer.Serialize(users);

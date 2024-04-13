@@ -3,23 +3,22 @@ using FileDb.App.Brokers.Storages;
 
 namespace FileDb.App.Services.Identities
 {
-    internal class IdentityService : IIdentityService
+    internal sealed class IdentityService : IIdentityService
     {
         private static IdentityService instance;
         private readonly IStorageBroker storageBroker;
 
-        private IdentityService()
+        private IdentityService(IStorageBroker storageBroker)
         {
-            this.storageBroker = new JsonStorageBroker();
+            this.storageBroker = storageBroker; 
         }
 
-        public static IdentityService GetInstance()
+        public static IdentityService GetInstance(IStorageBroker storageBroker)
         {
             if (instance is null)
             {
-                instance = new IdentityService();
+                instance = new IdentityService(storageBroker);
             }
-
             return instance;
         }
 
@@ -27,7 +26,7 @@ namespace FileDb.App.Services.Identities
         {
             List<User> users = this.storageBroker.ReadAllUsers();
 
-            return users.Count is not 0
+                return users.Count is not 0
                 ? IncrementLastUsersId(users)
                 : 1;
         }

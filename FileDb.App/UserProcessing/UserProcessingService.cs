@@ -4,37 +4,26 @@ using FileDb.App.Services.UserServices;
 
 namespace FileDb.App.UserProcessing
 {
-    internal class UserProcessingService
+    internal sealed class UserProcessingService
     {
         private readonly IUserService userService;
-        private readonly IdentityService identityService;
+        private readonly IIdentityService identityService;
 
-        public UserProcessingService(IUserService userService,
-                    IdentityService identitiyService)
+        public UserProcessingService(IUserService userService, IIdentityService identityService)
         {
             this.userService = userService;
-            this.identityService =  identitiyService;
+            this.identityService = identityService;
         }
-
-        public void CreateNewUser(string name)
+        public User CreateNewUser(User user)
         {
-            User user = new User();
             user.Id = this.identityService.GetNewId();
-            user.Name = name;
             this.userService.AddUser(user);
+
+            return user;
         }
 
         public void DisplayUsers() =>
             this.userService.ShowUsers();
 
-        public void DeleteUser(int id) =>
-            this.userService.Delete(id);
-
-        public void UpdateUser(string name)
-        {
-            User user = new User();
-            user.Name = name;
-            this.userService.Update(user);
-        }
     }
 }

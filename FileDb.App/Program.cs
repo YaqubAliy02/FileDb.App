@@ -1,8 +1,9 @@
-﻿using FileDb.App.Brokers.Loggings;
-using FileDb.App.Brokers.Storages;
+﻿using FileDb.App.Brokers.Storages;
+using FileDb.App.Models.Users;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserServices;
 using FileDb.App.UserProcessing;
+using FileDB.App.Brokers.Storages;
 
 namespace FileDb.App
 {
@@ -10,9 +11,30 @@ namespace FileDb.App
     {
         private static void Main(string[] args)
         {
-            string userChoice;
-            UserProcessingService userProcessingService = RegisterUserProcessingService();
+            Console.WriteLine("-------------Welcome to our FileDb library---------------------");
+            PrintMenuOfStorage();
+            string userChoice = Console.ReadLine();
+            int choice = Convert.ToInt32(userChoice);
+            IStorageBroker jsonstorageBroker = new JsonStorageBroker();
+            IStorageBroker txtstrorageBroker = new FileStorageBroker();
+            IUserService userService = null;
+            IIdentityService identityService = IdentityService.GetInstance(txtstrorageBroker);
 
+            switch (choice)
+            {
+                case 1:
+                    userService = new UserService(txtstrorageBroker);
+                    break;
+                case 2:
+                    userService = new UserService(jsonstorageBroker);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Existing...");
+                    break;
+            }
+
+
+            UserProcessingService userProcessingService = new UserProcessingService(userService, identityService);
             do
             {
                 PrintMenu();
@@ -24,37 +46,17 @@ namespace FileDb.App
                         Console.Clear();
                         Console.Write("Enter you name:");
                         string userName = Console.ReadLine();
-                        userProcessingService.CreateNewUser(userName);
+                        User user = new User()
+                        {
+                            Name = userName,
+                        };
+                        userProcessingService.CreateNewUser(user);
                         break;
 
                     case "2":
                         {
                             Console.Clear();
                             userProcessingService.DisplayUsers();
-                        }
-                        break;
-
-                    case "3":
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Enter an id which you want to delete");
-                            Console.Write("Enter id:");
-                            string deleteWithIdStr = Console.ReadLine();
-                            int deleteWithId = Convert.ToInt32(deleteWithIdStr);
-                            userProcessingService.DeleteUser(deleteWithId);
-                        }
-                        break;
-
-                    case "4":
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Enter an id which you want  to edit");
-                            Console.Write("Enter an id:");
-                            string idStr = Console.ReadLine();
-                            int id = Convert.ToInt32(idStr);
-                            Console.Write("Enter name:");
-                            string name = Console.ReadLine();
-                            userProcessingService.UpdateUser(name);
                         }
                         break;
 
@@ -71,27 +73,21 @@ namespace FileDb.App
             Console.WriteLine("The app has been finished");
         }
 
-        private static UserProcessingService RegisterUserProcessingService()
-        {
-            ILoggingBroker loggingBroker = new LoggingBroker();
-            IStorageBroker storageBroker = new JsonStorageBroker();
-            IUserService userService = new UserService(loggingBroker, storageBroker);
-            IdentityService identitiyService = IdentityService.GetInstance();
 
-            UserProcessingService userProcessingService =
-                new UserProcessingService(userService,
-                        identitiyService);
 
-            return userProcessingService;
-        }
 
-        public static void PrintMenu()
+        private static void PrintMenu()
         {
             Console.WriteLine("1.Create User");
             Console.WriteLine("2.Display User");
-            Console.WriteLine("3.Delete User by id");
-            Console.WriteLine("4.Update User by id");
             Console.WriteLine("0.Exit");
+        }
+        private static void PrintMenuOfStorage()
+        {
+            Console.WriteLine("---------Which format of file do you want to save your data?----------");
+            Console.WriteLine("1.Txt storage file");
+            Console.WriteLine("2.JSON storage file");
+            Console.Write("Enter you choice: ");
         }
     }
 }

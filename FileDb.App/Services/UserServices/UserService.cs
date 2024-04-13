@@ -9,10 +9,9 @@ namespace FileDb.App.Services.UserServices
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
 
-        public UserService(ILoggingBroker loggingBroker,
-            IStorageBroker storageBroker)
+        public UserService(IStorageBroker storageBroker)
         {
-            this.loggingBroker = loggingBroker;
+            this.loggingBroker = new LoggingBroker();
             this.storageBroker = storageBroker;
         }
 
@@ -23,15 +22,28 @@ namespace FileDb.App.Services.UserServices
                 : ValidateAndAddUser(user);
         }
 
-        public void ShowUsers()
+        public List<User> ShowUsers()
         {
-            List<User> users = this.storageBroker.ReadAllUsers();
+            List<User> users = new List<User>();
+
+            try
+            {
+                users = this.storageBroker.ReadAllUsers();
+            }
+            catch(Exception exception)
+            {
+                this.loggingBroker.LogError(exception.Message);
+                return new List<User>();
+            }
 
             foreach (User user in users)
             {
                 this.loggingBroker.LogSuccessUser($"{user.Id}, {user.Name}");
             }
-            this.loggingBroker.LogInforamation("===End of users");
+
+            this.loggingBroker.LogInforamation("--------End of users------------");
+
+            return users;
         }
 
         private User CreateAndLogInvalidUser()
@@ -52,42 +64,6 @@ namespace FileDb.App.Services.UserServices
                 this.loggingBroker.LogInforamation("User is created successfully");
                 return this.storageBroker.AddUser(user);
             }
-        }
-
-        public void DeleteUser(int id)
-        {
-            List<User> users = this.storageBroker.ReadAllUsers();
-            for (int i = 0; i < users.Count; i++)
-            {
-                if (users[i] != null && users[i].Id == id)
-                {
-                    users[i] = null;
-                    this.loggingBroker.LogInforamation($"PhoneBook with ID {id} deleted successfully.");
-                    return;
-                }
-            }
-            this.loggingBroker.LogError($"PhoneBook with ID {id} not found.");
-        }
-
-        public void Update(User user)
-        {
-            if (user is null)
-            {
-                this.loggingBroker.LogError("Your user is empty");
-                return;
-            }
-
-            if (user.Id == 0 || String.IsNullOrEmpty(user.Name))
-            {
-                this.loggingBroker.LogError("Your user is invalid");
-            }
-
-            this.storageBroker.UpdateUser(user);
-        }
-
-        public void Delete(int id)
-        {
-            this.storageBroker.DeleteUser(id);
         }
     }
 }
