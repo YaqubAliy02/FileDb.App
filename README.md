@@ -77,7 +77,8 @@ public UserService(IStorageBroker storageBroker)
 We've created an interface named IStorageBroker and implemented two classes, JsonStorageBroker.cs and TxtStorageBroker.cs, both of which inherit from this interface. By using the interface IStorageBroker as a parameter in the constructor of the UserService class, users can choose which storage format they prefer for saving their data without needing to change the code.
 
 This way, our code remains flexible, allowing users to easily switch between different storage formats without causing any disruptions.
-#Demo
+
+# Demo
 !["Demo"](/FileDb.App/Assets/Demos/LogIn.gif)
 
 
