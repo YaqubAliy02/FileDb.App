@@ -76,5 +76,7 @@ This way, our code remains flexible, allowing users to easily switch between dif
 
 # Demo
 !["Demo"](/FileDb.App/Assets/Demos/LogIn.gif)
+# Composite
+!["Demo"](/FileDb.App/Assets/Demos/demo.gif)
 
 
