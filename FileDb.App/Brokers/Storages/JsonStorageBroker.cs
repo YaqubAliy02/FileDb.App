@@ -6,7 +6,7 @@ namespace FileDB.App.Brokers.Storages
 {
     internal class JsonStorageBroker : IStorageBroker
     {
-        private const string FilePath = "../../../Users.json";
+        private const string FilePath = "../../../Assets/Jsons/Users.json";
 
         public JsonStorageBroker()
         {

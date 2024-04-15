@@ -15,6 +15,7 @@ namespace FileDb.App.Services.UserServices
             this.storageBroker = storageBroker;
         }
 
+
         public User AddUser(User user)
         {
             return user is null

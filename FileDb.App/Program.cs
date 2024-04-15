@@ -1,9 +1,11 @@
 ﻿using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
+using FileDb.App.NameAndSizeOfFilesAndFolders;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserServices;
 using FileDb.App.UserProcessing;
 using FileDB.App.Brokers.Storages;
+using System.IO;
 
 namespace FileDb.App
 {
@@ -71,10 +73,37 @@ namespace FileDb.App
 
             Console.Clear();
             Console.WriteLine("The app has been finished");
+            // Information about files and folder : Name and Size.
+            Console.WriteLine("Hello");
+            string assetsPath = "../../../Assets";
+
+            Folders rootFolder = new Folders(assetsPath);
+            PopulateFolder(rootFolder, assetsPath);
+            rootFolder.PrintInfo();
+
         }
+        static void PopulateFolder(Folders folder, string foldersPath)
+        {
+            try
+            {
+                foreach(string filePath in Directory.GetFiles(foldersPath))
+                {
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    folder.Add(new Files(fileInfo.Name, fileInfo.Length));
+                }
 
-
-
+                foreach(string subFolderPath in Directory.GetDirectories(foldersPath))
+                {
+                    Folders subFolders = new Folders(Path.GetFileName(subFolderPath));
+                    PopulateFolder(subFolders, subFolderPath);
+                    folder.Add(subFolders);
+                }
+            }
+            catch(Exception exception)
+            {
+                Console.WriteLine($"Error in PopulateFolder: {foldersPath}, {exception.Message}");
+            }
+        }
 
         private static void PrintMenu()
         {
