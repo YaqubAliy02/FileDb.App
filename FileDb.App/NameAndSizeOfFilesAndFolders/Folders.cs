@@ -34,7 +34,7 @@
         }
         public void PrintInfo()
         {
-            Console.WriteLine($"File: {Name}, Size: {Size} bytes");
+            Console.WriteLine($"File: {Name}, Size: {Size} bytea");
             foreach(var component in fileComponents)
             {
                 component.PrintInfo();

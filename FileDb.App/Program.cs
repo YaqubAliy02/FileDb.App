@@ -35,7 +35,6 @@ namespace FileDb.App
                     break;
             }
 
-
             UserProcessingService userProcessingService = new UserProcessingService(userService, identityService);
             do
             {
@@ -73,13 +72,15 @@ namespace FileDb.App
 
             Console.Clear();
             Console.WriteLine("The app has been finished");
-            // Information about files and folder : Name and Size.
+
+            // Information about files and folders : Name and Size. Auther: YaqubAliy
             Console.WriteLine("Hello");
             string assetsPath = "../../../Assets";
 
             Folders rootFolder = new Folders(assetsPath);
             PopulateFolder(rootFolder, assetsPath);
             rootFolder.PrintInfo();
+
 
         }
         static void PopulateFolder(Folders folder, string foldersPath)
