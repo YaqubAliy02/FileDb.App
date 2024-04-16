@@ -1,4 +1,8 @@
-﻿using FileDb.App.Brokers.Loggings;
+﻿//----------------------------------------
+// Tarteeb School (c) All rights reserved |
+//----------------------------------------
+
+using FileDb.App.Brokers.Loggings;
 using FileDb.App.Models.Users;
 using FileDb.App.Brokers.Storages;
 
@@ -14,7 +18,6 @@ namespace FileDb.App.Services.UserServices
             this.loggingBroker = new LoggingBroker();
             this.storageBroker = storageBroker;
         }
-
 
         public User AddUser(User user)
         {

@@ -11,4 +11,6 @@
     <Folder Include="Assets\Jsons\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties assets_4jsons_4photos_1json__JsonSchema="https://enterprisecontract.dev/enterprise-contract-controller/schema/policy_spec.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

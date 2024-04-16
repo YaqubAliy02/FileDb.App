@@ -1,4 +1,8 @@
-﻿using FileDb.App.Models.Users;
+﻿//----------------------------------------
+// Tarteeb School (c) All rights reserved |
+//----------------------------------------
+
+using FileDb.App.Models.Users;
 using FileDb.App.Brokers.Storages;
 
 namespace FileDb.App.Services.Identities
@@ -8,10 +12,8 @@ namespace FileDb.App.Services.Identities
         private static IdentityService instance;
         private readonly IStorageBroker storageBroker;
 
-        private IdentityService(IStorageBroker storageBroker)
-        {
+        private IdentityService(IStorageBroker storageBroker) => 
             this.storageBroker = storageBroker; 
-        }
 
         public static IdentityService GetInstance(IStorageBroker storageBroker)
         {
@@ -19,6 +21,7 @@ namespace FileDb.App.Services.Identities
             {
                 instance = new IdentityService(storageBroker);
             }
+
             return instance;
         }
 
@@ -31,9 +34,7 @@ namespace FileDb.App.Services.Identities
                 : 1;
         }
 
-        private static int IncrementLastUsersId(List<User> users)
-        {
-            return users[users.Count - 1].Id + 1;
-        }
+        private static int IncrementLastUsersId(List<User> users) => 
+            users[users.Count - 1].Id + 1;
     }
 }

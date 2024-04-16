@@ -1,4 +1,8 @@
-﻿namespace FileDb.App.Brokers.Loggings
+﻿//----------------------------------------
+// Tarteeb School (c) All rights reserved |
+//----------------------------------------
+
+namespace FileDb.App.Brokers.Loggings
 {
     internal interface ILoggingBroker
     {
