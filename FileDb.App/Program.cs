@@ -1,15 +1,13 @@
 ﻿//----------------------------------------
 // Tarteeb School (c) All rights reserved |
 //----------------------------------------
-
 using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
 using FileDb.App.NameAndSizeOfFilesAndFolders;
 using FileDb.App.Services.Identities;
+using FileDb.App.Services.UserProcessing;
 using FileDb.App.Services.UserServices;
-using FileDb.App.UserProcessing;
 using FileDB.App.Brokers.Storages;
-using System.IO;
 
 namespace FileDb.App
 {
@@ -39,7 +37,7 @@ namespace FileDb.App
                     break;
             }
 
-            UserProcessingService userProcessingService = new UserProcessingService(userService, identityService);
+            IUserProcessingService userProcessingService = new UserProcessingService(userService, identityService);
             do
             {
                 PrintMenu();

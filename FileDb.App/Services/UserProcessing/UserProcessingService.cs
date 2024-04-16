@@ -1,14 +1,13 @@
 ﻿//----------------------------------------
 // Tarteeb School (c) All rights reserved |
 //----------------------------------------
-
 using FileDb.App.Models.Users;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserServices;
 
-namespace FileDb.App.UserProcessing
+namespace FileDb.App.Services.UserProcessing
 {
-    internal sealed class UserProcessingService
+    internal sealed class UserProcessingService : IUserProcessingService
     {
         private readonly IUserService userService;
         private readonly IIdentityService identityService;
@@ -20,14 +19,13 @@ namespace FileDb.App.UserProcessing
         }
         public User CreateNewUser(User user)
         {
-            user.Id = this.identityService.GetNewId();
-            this.userService.AddUser(user);
+            user.Id = identityService.GetNewId();
+            userService.AddUser(user);
 
             return user;
         }
 
-        public void DisplayUsers() =>
-            this.userService.ShowUsers();
-
+        public List<User> DisplayUsers() =>
+            userService.ShowUsers();
     }
 }

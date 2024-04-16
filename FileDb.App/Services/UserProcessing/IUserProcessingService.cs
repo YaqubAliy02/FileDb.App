@@ -3,11 +3,11 @@
 //----------------------------------------
 using FileDb.App.Models.Users;
 
-namespace FileDb.App.Services.UserServices
+namespace FileDb.App.Services.UserProcessing
 {
-    internal interface IUserService
+    internal interface IUserProcessingService
     {
-        User AddUser(User user);
-        List<User> ShowUsers();
+        User CreateNewUser(User user);
+        List<User> DisplayUsers();
     }
 }
