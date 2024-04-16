@@ -21,7 +21,7 @@ namespace FileDb.App.Brokers.Loggings
 
         public void LogInformation(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(message);
             Console.ResetColor();
         }

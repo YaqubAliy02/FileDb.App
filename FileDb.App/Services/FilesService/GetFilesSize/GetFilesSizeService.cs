@@ -18,7 +18,7 @@ namespace FileDb.App.Services.FilesService.GetFilesSize
             DirectoryInfo[] subfolders = directoryInfo.GetDirectories();
             foreach(DirectoryInfo dirInfo in subfolders)
             {
-                totalSize += GetFilesSize(directoryInfo);
+                totalSize += GetFilesSize(dirInfo);
             }
 
             return totalSize;

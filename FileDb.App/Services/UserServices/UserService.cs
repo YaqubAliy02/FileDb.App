@@ -41,10 +41,10 @@ namespace FileDb.App.Services.UserServices
 
             foreach (User user in users)
             {
-                this.loggingBroker.LogSuccessUser($"{user.Id}, {user.Name}");
+                this.loggingBroker.LogSuccess($"{user.Id}, {user.Name}");
             }
 
-            this.loggingBroker.LogInforamation("--------End of users------------");
+            this.loggingBroker.LogInformation("--------End of users------------");
 
             return users;
         }
@@ -64,7 +64,7 @@ namespace FileDb.App.Services.UserServices
             }
             else
             {
-                this.loggingBroker.LogInforamation("User is created successfully");
+                this.loggingBroker.LogSuccess("User is created successfully");
                 return this.storageBroker.AddUser(user);
             }
         }

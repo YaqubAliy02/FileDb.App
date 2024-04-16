@@ -5,6 +5,7 @@ using FileDb.App.Brokers.Loggings;
 using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
 using FileDb.App.NameAndSizeOfFilesAndFolders;
+using FileDb.App.Services.FilesService.GetFilesName;
 using FileDb.App.Services.FilesService.GetFilesSize;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserProcessing;
@@ -74,21 +75,22 @@ namespace FileDb.App
                             IGetFilesSizeService getFilesSizeService = new GetFilesSizeService();
                             long fileSize = getFilesSizeService.GetFilesSize(directoryInfo);
 
-                            loggingBroker.LogInformation($"Total your files size : {fileSize} ");
+                            loggingBroker.LogInformation($"Total your files size : {fileSize} bytes");
                             break;
 
                         }
                     case "4":
                         {
                             Console.Clear();
-
+                            IGetFilesNameService getFilesNameService = new GetFilesNameService();
+                            getFilesNameService.GetFilesName();
                             break;
                         }
 
                     case "0": break;
 
                     default:
-                        Console.WriteLine("You entered wrong input, Try again");
+                        loggingBroker.LogError("You entered wrong input, Try again");
                         break;
                 }
             }
@@ -101,7 +103,7 @@ namespace FileDb.App
         {
             Console.WriteLine("1.Create User");
             Console.WriteLine("2.Display User");
-            Console.WriteLine("3.Files Size");
+            Console.WriteLine("3.Total size of files");
             Console.WriteLine("4.Files Name");
             Console.WriteLine("0.Exit");
         }
