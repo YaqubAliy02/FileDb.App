@@ -1,9 +1,11 @@
 ﻿//----------------------------------------
 // Tarteeb School (c) All rights reserved |
 //----------------------------------------
+using FileDb.App.Brokers.Loggings;
 using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
 using FileDb.App.NameAndSizeOfFilesAndFolders;
+using FileDb.App.Services.FilesService.GetFilesSize;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserProcessing;
 using FileDb.App.Services.UserServices;
@@ -21,6 +23,7 @@ namespace FileDb.App
             int choice = Convert.ToInt32(userChoice);
             IStorageBroker jsonstorageBroker = new JsonStorageBroker();
             IStorageBroker txtstrorageBroker = new FileStorageBroker();
+            ILoggingBroker loggingBroker = new LoggingBroker();
             IUserService userService = null;
             IIdentityService identityService = IdentityService.GetInstance(txtstrorageBroker);
 
@@ -62,6 +65,25 @@ namespace FileDb.App
                             userProcessingService.DisplayUsers();
                         }
                         break;
+                    case "3":
+                        {
+                            Console.Clear();
+                            string assetsPath = "../../../Assets";
+                            DirectoryInfo directoryInfo = new DirectoryInfo(assetsPath);
+
+                            IGetFilesSizeService getFilesSizeService = new GetFilesSizeService();
+                            long fileSize = getFilesSizeService.GetFilesSize(directoryInfo);
+
+                            loggingBroker.LogInformation($"Total your files size : {fileSize} ");
+                            break;
+
+                        }
+                    case "4":
+                        {
+                            Console.Clear();
+
+                            break;
+                        }
 
                     case "0": break;
 
@@ -74,49 +96,18 @@ namespace FileDb.App
 
             Console.Clear();
             Console.WriteLine("The app has been finished");
-
-            // Information about files and folders : Name and Size. Auther: YaqubAliy
-            Console.WriteLine("Hello");
-            string assetsPath = "../../../Assets";
-
-            Folders rootFolder = new Folders(assetsPath);
-            PopulateFolder(rootFolder, assetsPath);
-            rootFolder.PrintInfo();
-
-
         }
-        static void PopulateFolder(Folders folder, string foldersPath)
-        {
-            try
-            {
-                foreach(string filePath in Directory.GetFiles(foldersPath))
-                {
-                    FileInfo fileInfo = new FileInfo(filePath);
-                    folder.Add(new Files(fileInfo.Name, fileInfo.Length));
-                }
-
-                foreach(string subFolderPath in Directory.GetDirectories(foldersPath))
-                {
-                    Folders subFolders = new Folders(Path.GetFileName(subFolderPath));
-                    PopulateFolder(subFolders, subFolderPath);
-                    folder.Add(subFolders);
-                }
-            }
-            catch(Exception exception)
-            {
-                Console.WriteLine($"Error in PopulateFolder: {foldersPath}, {exception.Message}");
-            }
-        }
-
         private static void PrintMenu()
         {
             Console.WriteLine("1.Create User");
             Console.WriteLine("2.Display User");
+            Console.WriteLine("3.Files Size");
+            Console.WriteLine("4.Files Name");
             Console.WriteLine("0.Exit");
         }
         private static void PrintMenuOfStorage()
         {
-            Console.WriteLine("---------Which format of file do you want to save your data?----------");
+            Console.WriteLine("---------Which format of file do you want to save your data?---------");
             Console.WriteLine("1.Txt storage file");
             Console.WriteLine("2.JSON storage file");
             Console.Write("Enter you choice: ");
