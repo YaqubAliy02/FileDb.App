@@ -4,7 +4,6 @@
 using FileDb.App.Brokers.Loggings;
 using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
-using FileDb.App.Services.FilesService.GetFilesName;
 using FileDb.App.Services.FilesService.GetFilesSize;
 using FileDb.App.Services.Identities;
 using FileDb.App.Services.UserProcessing;
@@ -77,16 +76,7 @@ namespace FileDb.App
 
                             loggingBroker.LogInformation($"Total your files size : {fileSize} bytes");
                             break;
-
                         }
-                    case "4":
-                        {
-                            Console.Clear();
-                            IFilesNameService getFilesNameService = new FilesNameService();
-                            getFilesNameService.GetFilesName();
-                            break;
-                        }
-
                     case "0": break;
 
                     default:
@@ -104,7 +94,6 @@ namespace FileDb.App
             Console.WriteLine("1.Create User");
             Console.WriteLine("2.Display User");
             Console.WriteLine("3.Total size of files");
-            Console.WriteLine("4.Files Name");
             Console.WriteLine("0.Exit");
         }
         private static void PrintMenuOfStorage()
