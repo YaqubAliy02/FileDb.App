@@ -8,6 +8,6 @@ namespace FileDb.App.Services.UserProcessing
     internal interface IUserProcessingService
     {
         User CreateNewUser(User user);
-        List<User> DisplayUsers();
+        List<User> RetrieveUser();
     }
 }

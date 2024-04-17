@@ -25,7 +25,7 @@ namespace FileDb.App.Services.UserProcessing
             return user;
         }
 
-        public List<User> DisplayUsers() =>
-            userService.ShowUsers();
+        public List<User> RetrieveUser() =>
+            userService.ReadUsers();
     }
 }

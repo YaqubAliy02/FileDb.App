@@ -21,7 +21,6 @@ namespace FileDb.App.Brokers.Storages
             return user;
         }
 
-
         public List<User> ReadAllUsers()
         {
             string[] userLines = File.ReadAllLines(FilePath);
@@ -40,8 +39,6 @@ namespace FileDb.App.Brokers.Storages
 
             return users;
         }
-
-    
 
         private void EnsureFileExists()
         {

@@ -25,7 +25,7 @@ namespace FileDb.App.Services.UserServices
                 : ValidateAndAddUser(user);
         }
 
-        public List<User> ShowUsers()
+        public List<User> ReadUsers()
         {
             List<User> users = new List<User>();
 
