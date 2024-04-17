@@ -28,7 +28,7 @@ This way, our code remains flexible, allowing users to easily switch between dif
 
 If you have any questions or suggestions, please feel free to contact the maintainer at yaqubaliy02@gmail.com
 
-#Demo
+# Demo
 !["Demo"](/FileDb.App/Assets/Demos/demo.gif)
 
 if you are interested in this kind of Console App you can fallow: https://github.com/YaqubAliy02
