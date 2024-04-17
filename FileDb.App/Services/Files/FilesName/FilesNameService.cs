@@ -8,24 +8,24 @@ using System.Runtime.CompilerServices;
 
 namespace FileDb.App.Services.FilesService.GetFilesName
 {
-    internal class GetFilesNameService : IGetFilesNameService
+    internal class FilesNameService : IFilesNameService
     {
-        private readonly string FilePath = "../../../Assets";
+        private readonly string filePath = "../../../Assets";
 
         private readonly ILoggingBroker loggingBroker;
-        public GetFilesNameService()
+        public FilesNameService()
         {
             this.loggingBroker = new LoggingBroker();
         }
         public void GetFilesName()
         {
-            string[] dirs = Directory.GetDirectories(FilePath, "*", SearchOption.AllDirectories);
-            foreach (string dir in dirs)
+            string[] directories = Directory.GetDirectories(filePath, "*", SearchOption.AllDirectories);
+            foreach (string directory in directories)
             {
-                this.loggingBroker.LogInformation($"{Path.GetFileName(dir)}");
+                this.loggingBroker.LogInformation($"{Path.GetFileName(directory)}");
             }
 
-            var files = Directory.GetFiles(FilePath, "*.*", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories);
             foreach (string file in files)
             {
                 this.loggingBroker.LogInformation($"{Path.GetFileName(file)}");

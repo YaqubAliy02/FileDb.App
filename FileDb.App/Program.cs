@@ -4,7 +4,6 @@
 using FileDb.App.Brokers.Loggings;
 using FileDb.App.Brokers.Storages;
 using FileDb.App.Models.Users;
-using FileDb.App.NameAndSizeOfFilesAndFolders;
 using FileDb.App.Services.FilesService.GetFilesName;
 using FileDb.App.Services.FilesService.GetFilesSize;
 using FileDb.App.Services.Identities;
@@ -22,19 +21,20 @@ namespace FileDb.App
             PrintMenuOfStorage();
             string userChoice = Console.ReadLine();
             int choice = Convert.ToInt32(userChoice);
-            IStorageBroker jsonstorageBroker = new JsonStorageBroker();
-            IStorageBroker txtstrorageBroker = new FileStorageBroker();
+            IStorageBroker jsonStorageBroker = new JsonStorageBroker();
+            IStorageBroker fileStorageBroker = new FileStorageBroker();
             ILoggingBroker loggingBroker = new LoggingBroker();
             IUserService userService = null;
-            IIdentityService identityService = IdentityService.GetInstance(txtstrorageBroker);
-
+            IIdentityService identityService = null;
             switch (choice)
             {
                 case 1:
-                    userService = new UserService(txtstrorageBroker);
+                    identityService = IdentityService.GetInstance(fileStorageBroker);
+                    userService = new UserService(fileStorageBroker);
                     break;
                 case 2:
-                    userService = new UserService(jsonstorageBroker);
+                    identityService = IdentityService.GetInstance(jsonStorageBroker);
+                    userService = new UserService(jsonStorageBroker);
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Existing...");
@@ -82,7 +82,7 @@ namespace FileDb.App
                     case "4":
                         {
                             Console.Clear();
-                            IGetFilesNameService getFilesNameService = new GetFilesNameService();
+                            IFilesNameService getFilesNameService = new FilesNameService();
                             getFilesNameService.GetFilesName();
                             break;
                         }

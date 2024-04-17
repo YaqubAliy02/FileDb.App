@@ -4,9 +4,8 @@
 
 namespace FileDb.App.Services.FilesService.GetFilesName
 {
-    internal interface IGetFilesNameService
+    internal interface IFilesNameService
     {
        void GetFilesName();
-
     }
 }
