@@ -19,7 +19,7 @@ In our project, we've implemented dependency injection to support two database f
 Dependency Injection (DI) is a design pattern that has gained immense popularity in the world of software engineering. It offers a practical solution to manage dependencies between different objects, promoting loose coupling, and enhancing the testability and maintainability of your code.
 Here's an example of how we've used it:
 
-# Copy example:
+# Code example:
 !["DependencyInjection"](/FileDb.App/Assets/Demos/dependencyInjection.png)
 
 We've created an interface named IStorageBroker and implemented two classes, JsonStorageBroker.cs and TxtStorageBroker.cs, both of which inherit from this interface. By using the interface IStorageBroker as a parameter in the constructor of the UserService class, users can choose which storage format they prefer for saving their data without needing to change the code.
@@ -27,5 +27,7 @@ We've created an interface named IStorageBroker and implemented two classes, Jso
 This way, our code remains flexible, allowing users to easily switch between different storage formats without causing any disruptions.
 
 If you have any questions or suggestions, please feel free to contact the maintainer at yaqubaliy02@gmail.com
+
+#Demo
 
 if you are interested in this kind of Console App you can fallow: https://github.com/YaqubAliy02

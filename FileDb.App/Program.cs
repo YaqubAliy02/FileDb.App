@@ -72,7 +72,7 @@ namespace FileDb.App
                             string assetsPath = "../../../Assets";
                             DirectoryInfo directoryInfo = new DirectoryInfo(assetsPath);
 
-                            IGetFilesSizeService getFilesSizeService = new GetFilesSizeService();
+                            IFilesSizeService getFilesSizeService = new FilesSizeService();
                             long fileSize = getFilesSizeService.GetFilesSize(directoryInfo);
 
                             loggingBroker.LogInformation($"Total your files size : {fileSize} bytes");

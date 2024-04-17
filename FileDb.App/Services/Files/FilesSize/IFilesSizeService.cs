@@ -3,8 +3,9 @@
 //----------------------------------------
 namespace FileDb.App.Services.FilesService.GetFilesSize
 {
-    internal interface IGetFilesSizeService
+    internal interface IFilesSizeService
     {
         long GetFilesSize(DirectoryInfo directoryInfo);
     }
 }
+
