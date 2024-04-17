@@ -1,4 +1,5 @@
 # FileDb.App
+# .NET Console App - Text/JSON Database
 
 I'm looking to clarify some concepts related to my project, `FileDb.App`. Specifically, I'm interested in understanding `dependency injection` and `singleton patterns` better. Let's dive into an explanation of my code, focusing on how these topics are applied.
 
@@ -25,5 +26,6 @@ We've created an interface named IStorageBroker and implemented two classes, Jso
 
 This way, our code remains flexible, allowing users to easily switch between different storage formats without causing any disruptions.
 
+If you have any questions or suggestions, please feel free to contact the maintainer at yaqubaliy02@gmail.com
 
-
+if you are interested in this kind of Console App you can fallow: https://github.com/YaqubAliy02
