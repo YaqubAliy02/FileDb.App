@@ -9,7 +9,7 @@ namespace FileDB.App.Brokers.Storages
 {
     internal class JsonStorageBroker : IStorageBroker
     {
-        private const string FilePath = "../../../Assets/Jsons/Users.json";
+        private const string filePath = "../../../Assets/Jsons/Users.json";
 
         public JsonStorageBroker()
         {
@@ -18,19 +18,18 @@ namespace FileDB.App.Brokers.Storages
 
         public User AddUser(User user)
         {
-
-            string usersString = File.Exists(FilePath) ? File.ReadAllText(FilePath) : "[]";
+            string usersString = File.ReadAllText(filePath);
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
             users.Add(user);
             string serializedUsers = JsonSerializer.Serialize(users);
-            File.WriteAllText(FilePath, serializedUsers);
+            File.WriteAllText(filePath, serializedUsers);
 
             return user;
         }
 
         public List<User> ReadAllUsers()
         {
-            string usersString = File.ReadAllText(FilePath);
+            string usersString = File.ReadAllText(filePath);
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
 
             return users;
@@ -38,38 +37,37 @@ namespace FileDB.App.Brokers.Storages
 
         public User UpdateUser(User user)
         {
-            string usersString = File.ReadAllText(FilePath);
+            string usersString = File.ReadAllText(filePath);
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
             User updatedUser = users.FirstOrDefault(u => u.Id == user.Id);
             updatedUser.Name = user.Name;
 
             string serializedUsers = JsonSerializer.Serialize(users);
-            File.WriteAllText(FilePath, serializedUsers);
+            File.WriteAllText(filePath, serializedUsers);
 
             return updatedUser;
         }
 
         public bool DeleteUser(int id)
         {
-            string usersString = File.ReadAllText(FilePath);
+            string usersString = File.ReadAllText(filePath);
             List<User> users = JsonSerializer.Deserialize<List<User>>(usersString);
             User user = users.FirstOrDefault(u => u.Id == id);
             users.Remove(user);
             string serializedUsers = JsonSerializer.Serialize(users);
-            File.WriteAllText(FilePath, serializedUsers);
+            File.WriteAllText(filePath, serializedUsers);
 
             return true;
         }
 
         private void EnsureFileExists()
         {
-            bool fileExists = File.Exists(FilePath);
+            bool fileExists = File.Exists(filePath);
             if (fileExists is false)
             {
-                File.Create(FilePath).Close();
-                File.WriteAllText(FilePath, "[]");
+                File.Create(filePath).Close();
+                File.WriteAllText(filePath, "[]");
             }
-
         }
     }
 }

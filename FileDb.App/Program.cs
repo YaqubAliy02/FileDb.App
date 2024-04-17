@@ -63,7 +63,7 @@ namespace FileDb.App
                     case "2":
                         {
                             Console.Clear();
-                            userProcessingService.DisplayUsers();
+                            userProcessingService.RetrieveUser();
                         }
                         break;
                     case "3":
