@@ -7,7 +7,7 @@ namespace FileDb.App.Brokers.Storages
 {
     internal class FileStorageBroker : IStorageBroker
     {
-        private const string FilePath = "../../../Assets/Users.txt";
+        private const string filePath = "../../../Assets/Users.txt";
         public FileStorageBroker()
         {
             EnsureFileExists();
@@ -16,14 +16,14 @@ namespace FileDb.App.Brokers.Storages
         public User AddUser(User user)
         {
             string userLine = $"{user.Id}*{user.Name}\n";
-            File.AppendAllText(FilePath, userLine);
+            File.AppendAllText(filePath, userLine);
 
             return user;
         }
 
         public List<User> ReadAllUsers()
         {
-            string[] userLines = File.ReadAllLines(FilePath);
+            string[] userLines = File.ReadAllLines(filePath);
             List<User> users = new List<User>();
 
             foreach (string userLine in userLines)
@@ -42,11 +42,11 @@ namespace FileDb.App.Brokers.Storages
 
         private void EnsureFileExists()
         {
-            bool fileExists = File.Exists(FilePath);
+            bool fileExists = File.Exists(filePath);
 
             if (fileExists is false)
             {
-                File.Create(FilePath).Close();
+                File.Create(filePath).Close();
             }
         }
     }
