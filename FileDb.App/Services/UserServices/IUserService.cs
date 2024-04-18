@@ -7,7 +7,7 @@ namespace FileDb.App.Services.UserServices
 {
     internal interface IUserService
     {
-      
+        User AddUser(User user);
         List<User> ReadUsers();
     }
 }
