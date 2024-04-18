@@ -66,7 +66,7 @@ namespace FileDB.App.Brokers.Storages
             if (fileExists is false)
             {
                 File.Create(filePath).Close();
-                File.WriteAllText(filePath, "[]");
+                /*File.WriteAllText(filePath, "[]");*/
             }
         }
     }
